@@ -1,0 +1,19 @@
+{
+  "name": "elementalsback",
+  "version": "1.0.0",
+  "description": "This is backend to educational base \"Elementals\" ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreyDolzhenko/elementalsBack.git"
+  },
+  "author": "Andrey Dolzhenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndreyDolzhenko/elementalsBack/issues"
+  },
+  "homepage": "https://github.com/AndreyDolzhenko/elementalsBack#readme"
+}

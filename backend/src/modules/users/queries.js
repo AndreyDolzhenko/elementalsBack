@@ -1,0 +1,1 @@
+const getAllUsers = 'SELECT * FROM employees';
