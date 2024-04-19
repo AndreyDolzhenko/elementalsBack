@@ -1,9 +1,11 @@
 {
   "name": "elementalsback",
   "version": "1.0.0",
-  "description": "This is backend to educational base \"Elementals\" ",
-  "main": "index.js",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
   "scripts": {
+    "start": "node -r dotenv/config ./backend/src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,11 @@
   "bugs": {
     "url": "https://github.com/AndreyDolzhenko/elementalsBack/issues"
   },
-  "homepage": "https://github.com/AndreyDolzhenko/elementalsBack#readme"
+  "homepage": "https://github.com/AndreyDolzhenko/elementalsBack#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  }
 }

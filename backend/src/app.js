@@ -17,12 +17,11 @@ async function start () {
         //     res.send('Hello!');
         // });
 
-        app.use(`${API}/employees`, employeesRouter);
-        app.use(`${API}/companies`, companiesRouter);
-        app.use(`${API}/staffing`, staffingRouter);
+        app.use(`${API}/employees`, usersRouter);
+    
 
         app.listen(PORT, () => {
-            console.log(`Server is running on http://89.111.172.208:${PORT}`);            
+            console.log(`Server is running on http://89.111.172.208:${PORT}`);                                 
         });
 
     } catch (err) {
