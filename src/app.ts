@@ -21,10 +21,10 @@ async function start () {
     
 
         app.listen(PORT, () => {
-            console.log(`Server is running on http://89.111.172.208:${PORT}`);                                 
+            console.log(`Server is running on http://localhost:${PORT}`);                                             
         });
 
-    } catch (err) {
+    } catch (err: any) {
         throw new Error(err);
     }    
 };
