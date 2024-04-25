@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 
-import pool from "../../db/db.js";
+import pool from "../../db/db";
 
-import { getAllUsers as getAllUsersQuery } from "./queries.js";
+import { getAllUsers as getAllUsersQuery } from "./queries";
 
 function getAllUsers(req: Request, res: Response) {
     pool.query(getAllUsersQuery, (error, result) => {

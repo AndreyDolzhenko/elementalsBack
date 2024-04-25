@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import usersRouter from './modules/users/index.js';
+import usersRouter from './modules/users';
 
 const app = express();
 app.use(cors());
@@ -30,4 +30,3 @@ async function start () {
 };
 
 start();
-

@@ -2,12 +2,10 @@
   "name": "elementalsback",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
-  "type": "module",
+  "main": "src/app.ts",  
   "scripts": {
     "start": "nodemon -r dotenv/config src/app.ts",
-    "dev": "ts-node -r dotenv/config src/app.ts",
-    "dev1": "npx tsx -r dotenv/config src/app.ts"
+    "dev": "ts-node -r dotenv/config src/app.ts"
   },
   "repository": {
     "type": "git",
