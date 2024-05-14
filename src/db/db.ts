@@ -1,20 +1,21 @@
-import pkg from 'pg';
-const { Pool } = pkg;
+import { Sequelize } from 'sequelize';
 
-console.log({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
+const dbName = process.env.DB_NAME as string;
+const dbUser = process.env.DB_USER as string;
+const dbPassword = process.env.DB_PASSWORD as string;
+const dbHost = process.env.DB_HOST as string;
+
+const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
+  dialect: 'postgres',
+  host: dbHost,
+  define: {
+    freezeTableName: true,
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
+  },
+  query: {
+    raw: true,
+  },
 });
 
-const pool = new Pool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT),
-    database: process.env.DB_NAME,
-});
-
-export default pool;
+export default sequelize

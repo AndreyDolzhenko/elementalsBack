@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
+import sequelize from './db/db';
 import usersRouter from './modules/users';
 
 const app = express();
@@ -12,11 +13,10 @@ const API = process.env.API || '/api/v1';
 // const URL = `http://127.0.0.1:${PORT}/${API}`;
 
 async function start () {
-    try {
-        // app.get('/', (req, res) => {
-        //     res.send('Hello!');
-        // });
-
+    try {        
+        await sequelize.authenticate();
+        await sequelize.sync();
+        
         app.use(`${API}/employees`, usersRouter);
     
 
