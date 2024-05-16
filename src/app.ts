@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import sequelize from './db/db';
 import usersRouter from './modules/users';
+import User from './modules/users/models/user';
 
 const app = express();
 app.use(cors());
