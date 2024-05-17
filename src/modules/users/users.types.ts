@@ -1,5 +1,13 @@
-type Types = {
-    UserT: Object;
-};
+type UserT = { 
+    id: number,
+    login: string,
+    fio: string,
+    mail: string,
+    password: string,
+    salt: string,
 
-export default Types;
+}
+
+type CreateUser = Omit<UserT, "id">
+
+export { UserT, CreateUser };

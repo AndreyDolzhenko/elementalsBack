@@ -18,7 +18,7 @@ async function start () {
         await sequelize.authenticate();
         await sequelize.sync();
         
-        app.use(`${API}/employees`, usersRouter);
+        app.use(`${API}/users`, usersRouter);
     
 
         app.listen(PORT, () => {

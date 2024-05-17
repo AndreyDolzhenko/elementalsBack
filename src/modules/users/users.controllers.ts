@@ -1,14 +1,12 @@
 import User from "./models/user";
 
-import Types from "./users.types";
+import { UserT, CreateUser } from "./users.types";
 
 const getAllUsers = async () => {
   return User.findAll();
 }
 
-type UserT = Types;
-
-const createUser = async (user: UserT) => {
+const createUser = async (user: CreateUser) => {
   return User.create(user);
 }
 
@@ -24,4 +22,4 @@ const createUser = async (user: UserT) => {
 //     });
 //   }
 
-  export { getAllUsers };
+  export { getAllUsers, createUser };
