@@ -16,7 +16,7 @@ const API = process.env.API || '/api/v1';
 async function start () {
     try {        
         await sequelize.authenticate();
-        await sequelize.sync();
+        await sequelize.sync({force: true});
         
         app.use(`${API}/users`, usersRouter);
     

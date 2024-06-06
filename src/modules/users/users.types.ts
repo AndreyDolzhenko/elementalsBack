@@ -10,4 +10,6 @@ type UserT = {
 
 type CreateUser = Omit<UserT, "id">
 
-export { UserT, CreateUser };
+type SignUpUser = Omit<UserT, "id" | "salt">
+
+export { UserT, CreateUser, SignUpUser };

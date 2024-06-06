@@ -2,6 +2,7 @@ import { Router } from "express";
 import * as bcrypt from "bcrypt";
 
 import { getAllUsers, createUser } from "./users.controllers";
+import { SignUpUser } from "./users.types";
 
 const router = Router();
 
@@ -16,7 +17,12 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { login, fio, mail, password } = req.body;
+    const { login, fio, mail, password }: SignUpUser = req.body;
+
+    if (login.length < 3) {
+      res.status(400).send("Минимальная длина логина - 3 символа");
+      return;
+    }
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -28,6 +34,7 @@ router.post("/", async (req, res) => {
       salt,
       password: hashedPassword,
     });
+
     res.status(201).send("Пользователь создан");
   } catch (error) {
     res.status(500).send(error);
