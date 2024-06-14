@@ -14,4 +14,15 @@ const createUser = async (user: CreateUser) => {
   return User.create(user);
 }
 
-  export { getAllUsers, createUser };
+const getUserByLogin = async (login: string) => {
+  return User.findOne({
+    attributes: {
+      exclude: ["createdAt", "updatedAt"]
+    },
+    where: {
+      login,
+    }
+  })
+}
+
+export { getAllUsers, createUser, getUserByLogin };

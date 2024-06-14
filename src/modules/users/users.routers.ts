@@ -1,8 +1,8 @@
 import { Router } from "express";
 import * as bcrypt from "bcrypt";
 
-import { getAllUsers, createUser } from "./users.controllers";
-import { SignUpUser } from "./users.types";
+import { getAllUsers, createUser, getUserByLogin } from "./users.controllers";
+import { SignUpUser, UserT } from "./users.types";
 
 const router = Router();
 
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/auth/registration", async (req, res) => {
   try {
     const { login, fio, mail, password }: SignUpUser = req.body;
 
@@ -38,6 +38,27 @@ router.post("/", async (req, res) => {
     res.status(201).send("Пользователь создан");
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+router.post("/auth/login", async (req, res) => {
+  try {
+    const { login, password } = req.body;
+    const user: UserT = (await getUserByLogin(login)) as any;
+    if (user) {
+      bcrypt.compare(password, user.password)
+        .then(() => {
+          
+        })
+        .catch((error) => res.status(400).send("Incorrect password"));
+
+    } else {
+      res.status(404).send("User doesn't exist");
+    }
+
+   
+  } catch (error) {
+    
   }
 });
 
