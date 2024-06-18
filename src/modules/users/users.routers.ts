@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 import { getAllUsers, createUser, getUserByLogin } from "./users.controllers";
 import { SignUpUser, UserT } from "./users.types";
@@ -46,20 +47,33 @@ router.post("/auth/login", async (req, res) => {
     const { login, password } = req.body;
     const user: UserT = (await getUserByLogin(login)) as any;
     if (user) {
-      bcrypt.compare(password, user.password)
+      bcrypt
+        .compare(password, user.password)
         .then(() => {
-          
+          const token = jwt.sign(
+            { id: user.id },
+            process.env.JWT_SECRET as string,
+            {
+              expiresIn: 300,
+            }
+          );
+
+          res.status(200).json({
+            auth: true,
+            token,
+            user: {
+              id: user.id,
+              login: user.login,
+              fio: user.fio,
+              mail: user.mail,
+            },
+          });
         })
         .catch((error) => res.status(400).send("Incorrect password"));
-
     } else {
       res.status(404).send("User doesn't exist");
     }
-
-   
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 });
 
 export default router;
