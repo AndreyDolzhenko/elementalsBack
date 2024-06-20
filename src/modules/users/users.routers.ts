@@ -69,7 +69,10 @@ router.post("/auth/login", async (req, res) => {
             },
           });
         })
-        .catch((error) => res.status(400).send("Incorrect password"));
+        .catch((error) => res.status(400).json({
+          message: "Incorrect password",
+          auth: false,
+        }));
     } else {
       res.status(404).send("User doesn't exist");
     }
