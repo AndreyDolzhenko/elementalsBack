@@ -47,32 +47,55 @@ router.post("/auth/login", async (req, res) => {
     const { login, password } = req.body;
     const user: UserT = (await getUserByLogin(login)) as any;
     if (user) {
-      bcrypt
-        .compare(password, user.password)
-        .then(() => {
-          const token = jwt.sign(
-            { id: user.id },
-            process.env.JWT_SECRET as string,
-            {
-              expiresIn: 300,
-            }
-          );
-
-          res.status(200).json({
-            auth: true,
-            token,
-            user: {
-              id: user.id,
-              login: user.login,
-              fio: user.fio,
-              mail: user.mail,
-            },
-          });
-        })
-        .catch((error) => res.status(400).json({
-          message: "Incorrect password",
-          auth: false,
-        }));
+      const result = await bcrypt.compare(password, user.password);
+      if (result) {
+        const token = jwt.sign(
+          { id: user.id },
+          process.env.JWT_SECRET as string,
+          {
+            expiresIn: 300,
+          }
+        );       
+        res.status(200).json({
+          auth: true,
+          token,
+          user: {
+            id: user.id,
+            login: user.login,
+            fio: user.fio,
+            mail: user.mail,
+          },
+        });
+        return;
+      }
+      res.status(400).json({
+        message: "Incorrect password",
+        auth: false,
+      });
+      // .then(() => {
+      //   const token = jwt.sign(
+      //     { id: user.id },
+      //     process.env.JWT_SECRET as string,
+      //     {
+      //       expiresIn: 300,
+      //     }
+      //   );
+      //   console.log("password - " + password);
+      //   res.status(200).json({
+      //     auth: true,
+      //     token,
+      //     user: {
+      //       id: user.id,
+      //       login: user.login,
+      //       fio: user.fio,
+      //       mail: user.mail,
+      //     },
+      //   });
+      // })
+      // .catch((error) => res.status(400).json({
+      //   message: "Incorrect password",
+      //   auth: false,
+      // }));
     } else {
       res.status(404).send("User doesn't exist");
     }
