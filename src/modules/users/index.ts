@@ -1,1 +1,7 @@
-export { default } from "./users.routers";
+import usersRouter from "./users.routers";
+import User from "./models/user";
+
+export {
+    usersRouter, 
+    User
+};
