@@ -5,7 +5,7 @@ import { User } from "../../users";
 
 const LastTry = sequelize.define("last_try", { 
     id: {
-        type: UUID,        
+        type: DataTypes.NUMBER,        
         primaryKey: true,
     },
     brandName: {

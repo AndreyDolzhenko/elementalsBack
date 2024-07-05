@@ -3,7 +3,7 @@ import cors from 'cors';
 
 import sequelize from './db/db';
 import {usersRouter, User} from './modules/users';
-import { LastTryRouter } from './modules/guessSTM';
+import { LastTryRouter, AttamptsRouter } from './modules/guessSTM';
 
 const app = express();
 app.use(cors());
@@ -21,6 +21,8 @@ async function start () {
         app.use(`${API}/users`, usersRouter);
     
         app.use(`${API}/last_try`, LastTryRouter);
+
+        app.use(`${API}/attampts`, AttamptsRouter);
 
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);                                             

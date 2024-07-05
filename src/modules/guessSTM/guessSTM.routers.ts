@@ -5,9 +5,10 @@ import { createLastTry } from "./guessSTM.controllers";
 
 const router = Router();
 
-router.post("/last_try", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const {
+      id,
       brandName,
       selectedOption,
       correctOption,
@@ -16,6 +17,7 @@ router.post("/last_try", async (req, res) => {
     }: LastTryT = req.body;
     
     await createLastTry({
+        id,
         brandName,
         selectedOption,
         correctOption,

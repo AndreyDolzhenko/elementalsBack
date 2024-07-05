@@ -9,6 +9,7 @@ type UserT = {
 }
 
 type LastTryT = {
+    id: number,
     brandName: string;
     selectedOption: string;
     correctOption: string;
