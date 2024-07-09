@@ -5,7 +5,7 @@ import { User } from "../../users";
 
 const LastTry = sequelize.define("last_try", { 
     id: {
-        type: DataTypes.NUMBER,        
+        type: UUID,        
         primaryKey: true,
     },
     brandName: {
@@ -29,7 +29,8 @@ const LastTry = sequelize.define("last_try", {
         references: {
             model: User,
             key: "id",
-        }
+        },
+        allowNull: false,
     },
 });
 

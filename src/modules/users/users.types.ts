@@ -1,3 +1,5 @@
+import { UUID } from "crypto";
+
 type UserT = { 
     id: number,
     login: string,
@@ -9,7 +11,7 @@ type UserT = {
 }
 
 type LastTryT = {
-    id: number,
+    id: string,
     brandName: string;
     selectedOption: string;
     correctOption: string;

@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../../../db/db";
 import { User } from "../../users";
 
-const Attampts = sequelize.define("attampts", { 
+const Attempts = sequelize.define("attempts", { 
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -22,10 +22,11 @@ const Attampts = sequelize.define("attampts", {
         references: {
             model: User,
             key: "id",
-        }
+        },
+        allowNull: false,
     },
 });
 
-Attampts.belongsTo(User, {foreignKey: "userId", as: "user"}); // нужно Один к Одному
+Attempts.belongsTo(User, {foreignKey: "userId", as: "user"}); // нужно Один ко многим
 
-export default Attampts;
+export default Attempts;
