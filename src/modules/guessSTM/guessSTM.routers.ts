@@ -33,21 +33,16 @@ router.post("/last-try", async (req, res) => {
   }
 });
 
-router.post("/last-try/data", async (req, res) => {
+router.get("/last-try", async (req, res) => {
   try {
-    const userId: number = req.body;
+    const {userId} = req.query;
+    const typedUserId = Number(userId as string);
+    console.log(userId);   
     const lastTryResult: DataOfLastTry = (await getLastTryByUserId(
-      userId
+      typedUserId
     )) as any;
     if (lastTryResult) {
-      res.status(200).json({
-        lastTryResult: {
-          brandName: lastTryResult.brandName,
-          selectedOption: lastTryResult.selectedOption,
-          correctOption: lastTryResult.correctOption,
-          answerStatus: lastTryResult.answer_status,
-        },
-      });
+      res.status(200).json(lastTryResult);
     } else {
       res.status(404).json({ message: "Нет такого пользователя в базе!" });
     }

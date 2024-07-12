@@ -6,7 +6,7 @@ const createLastTry = async (lastTry: LastTryT) => {
   }
 
 const getLastTryByUserId = async (userId: number) => {
-  return LastTry.findOne({
+  return LastTry.findAll({
     attributes: {
       exclude: ["id"]
     },
