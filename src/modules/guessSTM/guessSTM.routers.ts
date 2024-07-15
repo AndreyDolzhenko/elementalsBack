@@ -1,8 +1,14 @@
 import { Router } from "express";
 import { v4 as uuidv4 } from "uuid";
 
-import { LastTryT, DataOfLastTry } from "./guessSTM.types";
-import { createLastTry, getLastTryByUserId } from "./guessSTM.controllers";
+import { LastTryT, DataOfLastTry, AttemptsT, CreateAttempts, AllAttempts } from "./guessSTM.types";
+import {
+  createLastTry,
+  getLastTryByUserId,
+  createAttempts,
+  getAttempts,
+} from "./guessSTM.controllers";
+import Attempts from "./models/attempts";
 
 const router = Router();
 
@@ -35,9 +41,9 @@ router.post("/last-try", async (req, res) => {
 
 router.get("/last-try", async (req, res) => {
   try {
-    const {userId} = req.query;
+    const { userId } = req.query;
     const typedUserId = Number(userId as string);
-    console.log(userId);   
+    console.log(userId);
     const lastTryResult: DataOfLastTry = (await getLastTryByUserId(
       typedUserId
     )) as any;
@@ -46,27 +52,18 @@ router.get("/last-try", async (req, res) => {
     } else {
       res.status(404).json({ message: "Нет такого пользователя в базе!" });
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 router.post("/attempts", async (req, res) => {
-  const id = uuidv4();
-  console.log(id);
   try {
-    const {
-      brandName,
-      selectedOption,
-      correctOption,
-      answer_status,
-      userId,
-    }: LastTryT = req.body;
+    const { correct, uncorrect, userId }: CreateAttempts  = req.body;
 
-    await createLastTry({
-      id,
-      brandName,
-      selectedOption,
-      correctOption,
-      answer_status,
+    await createAttempts({      
+      correct,
+      uncorrect,
       userId,
     });
 
@@ -75,5 +72,23 @@ router.post("/attempts", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+router.get("/attempts", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const typedUserId = Number(userId as string);    
+    console.log("userId Hello");
+    const allAttempts: AllAttempts = (await getAttempts(
+      typedUserId
+    )) as any;
+    if (allAttempts) {
+      res.status(200).json(allAttempts);
+    } else {
+      res.status(404).json({ message: "Нет такого пользователя в базе!" });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 export default router;

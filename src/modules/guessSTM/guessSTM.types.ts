@@ -9,4 +9,19 @@ type LastTryT = {
 
 type DataOfLastTry = Omit<LastTryT, "id" | "userId">;
 
-export { LastTryT, DataOfLastTry };
+type AttemptsT = {
+    id: number,
+    correct: number,
+    uncorrect: number,  
+    userId: number,
+}
+
+type CreateAttempts = {    
+    correct: number,
+    uncorrect: number,  
+    userId: number,
+}
+
+type AllAttempts = Omit<CreateAttempts, "userId">
+
+export { LastTryT, DataOfLastTry, AttemptsT, CreateAttempts, AllAttempts };
