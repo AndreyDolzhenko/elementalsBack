@@ -7,6 +7,7 @@ import {
   getLastTryByUserId,
   createAttempts,
   getAttempts,
+  deleteLastTryByUserId,
 } from "./guessSTM.controllers";
 import Attempts from "./models/attempts";
 
@@ -24,6 +25,7 @@ router.post("/last-try", async (req, res) => {
       userId,
     }: LastTryT = req.body;
     console.log(req.body);
+    // await deleteLastTryByUserId(userId);
     await createLastTry({
       id,
       brandName,
@@ -34,6 +36,17 @@ router.post("/last-try", async (req, res) => {
     });
 
     res.status(201).send("Запись о последней попытке создана");
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.delete("/last-try", async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const typedUserId = Number(userId as string);    
+    await deleteLastTryByUserId(typedUserId);
+    res.status(201).send("Записи удалены");
   } catch (error) {
     res.status(500).send(error);
   }

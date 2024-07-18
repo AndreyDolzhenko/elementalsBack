@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import { LastTryT, AttemptsT, CreateAttempts } from "./guessSTM.types";
 import Attempts from "./models/attempts";
 import LastTry from "./models/lastTry";
@@ -21,6 +22,14 @@ const getLastTryByUserId = async (userId: number) => {
   });
 };
 
+const deleteLastTryByUserId = async (userId: number) => {
+  LastTry.destroy({
+    where: {
+      userId,
+    },
+});
+}
+
 const getAttempts = async (userId: number) => {
   return Attempts.findAll({
     attributes: {
@@ -32,4 +41,4 @@ const getAttempts = async (userId: number) => {
   });
 }
 
-export { createLastTry, getLastTryByUserId, createAttempts, getAttempts };
+export { createLastTry, getLastTryByUserId, createAttempts, getAttempts, deleteLastTryByUserId };
