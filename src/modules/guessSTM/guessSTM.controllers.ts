@@ -1,5 +1,5 @@
-import { where } from "sequelize";
 import { LastTryT, AttemptsT, CreateAttempts } from "./guessSTM.types";
+import moment from "moment-timezone";
 import Attempts from "./models/attempts";
 import LastTry from "./models/lastTry";
 
@@ -12,7 +12,7 @@ const createAttempts = async (attempts: CreateAttempts) => {
 };
 
 const getLastTryByUserId = async (userId: number) => {
-  return LastTry.findAll({
+  const lastTryRecords: any = await LastTry.findAll({
     attributes: {
       exclude: ["id"],
     },
@@ -20,6 +20,22 @@ const getLastTryByUserId = async (userId: number) => {
       userId,
     },
   });
+  console.log("lastTryRecords - ", lastTryRecords);
+  const formattedRecords = lastTryRecords.map((record: any) => {
+    const formattedRecord = record;
+    console.log("record - " ,record);    
+    formattedRecord.createdAt = moment(formattedRecord.createdAt)
+    .tz("UTC")
+    .utcOffset(180)
+    .format("YYYY-MM-DD HH:mm:ss");
+    formattedRecord.updatedAt = moment(formattedRecord.updatedAt).tz('UTC').utcOffset(180).format('YYYY-MM-DD HH:mm:ss');
+    console.log("formattedRecord - ", formattedRecord);
+    return formattedRecord;
+  });
+  
+  console.log(formattedRecords);
+  // createdAt: 2024-07-23T09:40:36.453Z,
+  return formattedRecords;
 };
 
 const deleteLastTryByUserId = async (userId: number) => {
@@ -27,18 +43,39 @@ const deleteLastTryByUserId = async (userId: number) => {
     where: {
       userId,
     },
-});
-}
+  });
+};
 
 const getAttempts = async (userId: number) => {
-  return Attempts.findAll({
+  const attemptsRecords: any = await Attempts.findAll({
     attributes: {
       exclude: ["id"],
     },
     where: {
       userId,
-    }
+    },
   });
-}
+  const formattedRecords = attemptsRecords.map((record: any) => {
+    const formattedRecord = record;
+    console.log("record - " ,record);    
+    formattedRecord.createdAt = moment(formattedRecord.createdAt)
+    .tz("UTC")
+    .utcOffset(180)
+    .format("YYYY-MM-DD HH:mm:ss");
+    formattedRecord.updatedAt = moment(formattedRecord.updatedAt).tz('UTC').utcOffset(180).format('YYYY-MM-DD HH:mm:ss');
+    console.log("formattedRecord - ", formattedRecord);
+    return formattedRecord;
+  });
+  
+  console.log(formattedRecords);
+  // createdAt: 2024-07-23T09:40:36.453Z,
+  return formattedRecords;
+};
 
-export { createLastTry, getLastTryByUserId, createAttempts, getAttempts, deleteLastTryByUserId };
+export {
+  createLastTry,
+  getLastTryByUserId,
+  createAttempts,
+  getAttempts,
+  deleteLastTryByUserId,
+};

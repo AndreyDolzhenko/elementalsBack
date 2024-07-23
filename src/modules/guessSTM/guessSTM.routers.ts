@@ -37,7 +37,7 @@ router.post("/last-try", async (req, res) => {
 
     res.status(201).send("Запись о последней попытке создана");
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(`Вы допустили ошибку!, ${error}`);
   }
 });
 
