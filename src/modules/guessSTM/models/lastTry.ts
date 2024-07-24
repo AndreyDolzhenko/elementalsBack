@@ -13,11 +13,11 @@ const LastTry = sequelize.define("last_try", {
     allowNull: false,
   },
   selectedOption: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(1000),
     allowNull: false,
   },
   correctOption: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(1000),
     allowNull: false,
   },
   answer_status: {

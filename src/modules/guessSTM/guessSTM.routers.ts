@@ -37,7 +37,7 @@ router.post("/last-try", async (req, res) => {
 
     res.status(201).send("Запись о последней попытке создана");
   } catch (error) {
-    res.status(500).send(`Вы допустили ошибку!, ${error}`);
+    res.status(500).send(`Вы допустили ошибку!!!!!!!!, ${error}`);
   }
 });
 
@@ -48,7 +48,7 @@ router.delete("/last-try", async (req, res) => {
     await deleteLastTryByUserId(typedUserId);
     res.status(201).send("Записи удалены");
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(`Запись не удалена!, ${error}`);
   }
 });
 
@@ -66,7 +66,7 @@ router.get("/last-try", async (req, res) => {
       res.status(404).json({ message: "Нет такого пользователя в базе!" });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(`Пользователь не найден!, ${error}`);
   }
 });
 
@@ -82,7 +82,7 @@ router.post("/attempts", async (req, res) => {
 
     res.status(201).send("Результаты тестирования записаны");
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(`Результаты тестирования НЕ записаны!, ${error}`);
   }
 });
 
@@ -100,7 +100,7 @@ router.get("/attempts", async (req, res) => {
       res.status(404).json({ message: "Нет такого пользователя в базе!" });
     }
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send(`Попытка не записана!, ${error}`);
   }
 })
 

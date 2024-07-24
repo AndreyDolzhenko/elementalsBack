@@ -19,22 +19,17 @@ const getLastTryByUserId = async (userId: number) => {
     where: {
       userId,
     },
-  });
-  console.log("lastTryRecords - ", lastTryRecords);
+  });  
   const formattedRecords = lastTryRecords.map((record: any) => {
-    const formattedRecord = record;
-    console.log("record - " ,record);    
+    const formattedRecord = record;     
     formattedRecord.createdAt = moment(formattedRecord.createdAt)
     .tz("UTC")
     .utcOffset(180)
     .format("YYYY-MM-DD HH:mm:ss");
     formattedRecord.updatedAt = moment(formattedRecord.updatedAt).tz('UTC').utcOffset(180).format('YYYY-MM-DD HH:mm:ss');
-    console.log("formattedRecord - ", formattedRecord);
     return formattedRecord;
-  });
-  
-  console.log(formattedRecords);
-  // createdAt: 2024-07-23T09:40:36.453Z,
+  });  
+ 
   return formattedRecords;
 };
 
@@ -56,19 +51,15 @@ const getAttempts = async (userId: number) => {
     },
   });
   const formattedRecords = attemptsRecords.map((record: any) => {
-    const formattedRecord = record;
-    console.log("record - " ,record);    
+    const formattedRecord = record;      
     formattedRecord.createdAt = moment(formattedRecord.createdAt)
     .tz("UTC")
     .utcOffset(180)
     .format("YYYY-MM-DD HH:mm:ss");
     formattedRecord.updatedAt = moment(formattedRecord.updatedAt).tz('UTC').utcOffset(180).format('YYYY-MM-DD HH:mm:ss');
-    console.log("formattedRecord - ", formattedRecord);
     return formattedRecord;
-  });
+  });  
   
-  console.log(formattedRecords);
-  // createdAt: 2024-07-23T09:40:36.453Z,
   return formattedRecords;
 };
 
