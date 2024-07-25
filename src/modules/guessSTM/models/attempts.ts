@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import moment from "moment-timezone";
 
 import sequelize from "../../../db/db";
 import { User } from "../../users";
@@ -24,7 +25,7 @@ const Attempts = sequelize.define("attempts", {
             key: "id",
         },
         allowNull: false,
-    },
+    },    
 });
 
 Attempts.belongsTo(User, {foreignKey: "userId", as: "user"}); // нужно Один ко многим
