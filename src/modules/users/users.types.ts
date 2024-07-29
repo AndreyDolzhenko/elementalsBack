@@ -4,8 +4,7 @@ type UserT = {
     fio: string,
     mail: string,
     password: string,
-    salt: string,
-
+    salt: string,    
 }
 
 type CreateUser = Omit<UserT, "id">

@@ -33,7 +33,7 @@ router.post("/auth/registration", async (req, res) => {
       fio,
       mail,
       salt,
-      password: hashedPassword,
+      password: hashedPassword,      
     });
 
     res.status(201).send("Пользователь создан");
