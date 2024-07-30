@@ -1,6 +1,6 @@
 import User from "./models/user";
 
-import { UserT, CreateUser } from "./users.types";
+import { UserT, CreateUser, UpdateUser } from "./users.types";
 
 const getAllUsers = async () => {
   return User.findAll({
@@ -25,4 +25,12 @@ const getUserByLogin = async (login: string) => {
   })
 }
 
-export { getAllUsers, createUser, getUserByLogin };
+const updateUser = async (id: number, user: UpdateUser ) => {
+  return User.update(user, {
+    where: {
+      id,
+    }
+  })
+}
+
+export { getAllUsers, createUser, getUserByLogin, updateUser };

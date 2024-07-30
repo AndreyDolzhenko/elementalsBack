@@ -2,7 +2,7 @@ import { Router } from "express";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { getAllUsers, createUser, getUserByLogin } from "./users.controllers";
+import { getAllUsers, createUser, getUserByLogin, updateUser } from "./users.controllers";
 import { SignUpUser, UserT } from "./users.types";
 
 const router = Router();
@@ -33,7 +33,8 @@ router.post("/auth/registration", async (req, res) => {
       fio,
       mail,
       salt,
-      password: hashedPassword,      
+      password: hashedPassword,  
+      profile: "user",    
     });
 
     res.status(201).send("Пользователь создан");
@@ -64,6 +65,7 @@ router.post("/auth/login", async (req, res) => {
             login: user.login,
             fio: user.fio,
             mail: user.mail,
+            profile: user.profile,
           },
         });
         return;
@@ -76,6 +78,17 @@ router.post("/auth/login", async (req, res) => {
       res.status(404).json({message: "Нет такого пользователя в базе!"});
     }
   } catch (error) {}
+});
+
+router.put("/:id", async (req, res) => {  
+  try {
+    const userId = +req.params.id;
+    const user = req.body;
+    const updatedUser = await updateUser(userId, user);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).send("Данные пользователя не обновлены!");
+  }
 });
 
 export default router;

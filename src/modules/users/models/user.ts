@@ -30,6 +30,9 @@ const User = sequelize.define("users", {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    profile: {
+        type: DataTypes.STRING,        
+    }
     
 });
 
